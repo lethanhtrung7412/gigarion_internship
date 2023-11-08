@@ -1,2 +1,3 @@
-# gigarion_internship
-Sample project
+# Gigarion_internship
+
+- Github summarize: (./github_summarize.md)[here]
