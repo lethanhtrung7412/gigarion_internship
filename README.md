@@ -1,3 +1,3 @@
 # Gigarion_internship
 
-- Github summarize: (./github_summarize.md)[here]
+- Github summarize: [here] (./github_summarize.md)
