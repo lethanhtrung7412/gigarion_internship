@@ -11,4 +11,10 @@ Some simple command that I have learn:
 - git branch <new branch name>: create a new branch, like a new version of the main repo
 - git merge <branch you want to merge>: combine the change that you make from other one to the branch that you currently on
 
+Git flow: is a Git branching model using feature branch and multiple primary branch. Some branch name that is usual
+to see in this model is `main` branch, `hotfix` branch, `release` branch, `develop` branch (primary branch) and 
+the `feature` branchs that is checkout from the `develop` branch. When the `feature` is complete it will be merge 
+back to `develop`. When the `release` branch is done, it will be merged into `main` and develop branch. If a issue 
+is found in `main` branch, we create a `hotfix` branch from `main`, and then merge back to `main` and `develop` after 
+complete fixing it  
 
