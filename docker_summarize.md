@@ -12,6 +12,7 @@ dependences. The Docker Container it also like a virtual enviroment that you can
 where it require less resouce. Container are mutable
 - Dockerfile: is a file that contains instruction for building an application enviroment. We use this to create a
 docker images
+- docker-compose.yaml: is a file that let us define and run multiple container together
 
   
 
