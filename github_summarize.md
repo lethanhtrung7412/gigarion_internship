@@ -19,3 +19,11 @@ back to `develop`. When the `release` branch is done, it will be merged into `ma
 found in `main` branch, we create a `hotfix` branch from `main`, and then merge back to `main` and 
 `develop` after complete fixing it  
 
+Pros and cons when using git flow:
+- Pros:
++ Developing feature in seperate branch help us to avoid some anoying bug to our code
++ Help us managing large project better
++ Greate for hotfix branch
+- Cons:
++ This model is not fit for a small project
+
