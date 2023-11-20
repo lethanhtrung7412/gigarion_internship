@@ -6,7 +6,7 @@ Some simple command that I have learn:
 - `git status`: check for  any change that happen
 - `git add .` or `git add <path to file>`:add the change into the staging area
 - `git commit -m "Your message"`: confirm all the change that in the staging area and save it
-- `git push`: push all the commit code the online repository
+- `git push`: push all the commit code to the online repository
 - `git pull`: get all the change from the online repository and merge into local repo
 - `git branch <new branch name>`: create a new branch, like a new version of the main repo
 - `git merge <branch you want to merge>`: combine the change that you make from other one to the branch that you 
@@ -18,4 +18,12 @@ to see in this model is `main` branch, `hotfix` branch, `release` branch, `devel
 back to `develop`. When the `release` branch is done, it will be merged into `main` and develop branch. If a issue is
 found in `main` branch, we create a `hotfix` branch from `main`, and then merge back to `main` and 
 `develop` after complete fixing it  
+
+Pros and cons when using git flow:
+- Pros:
++ Developing feature in seperate branch help us to avoid some anoying bug to our code
++ Help us managing large project better
++ Greate for hotfix branch
+- Cons:
++ This model is not fit for a small project
 
