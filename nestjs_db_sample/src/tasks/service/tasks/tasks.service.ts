@@ -28,7 +28,7 @@ export class TasksService {
     const task = await this.taskRepository.findOne({ where: { id } });
     const updateTask = await this.taskRepository.update(id, {
       ...task,
-      is_complete: true,
+      is_complete: !task.is_complete,
     });
 
     return updateTask;

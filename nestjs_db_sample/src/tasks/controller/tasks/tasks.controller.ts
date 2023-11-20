@@ -14,7 +14,7 @@ import { CreateTaskDto } from 'src/tasks/dtos/CreateTask.dto';
 import { TasksService } from 'src/tasks/service/tasks/tasks.service';
 import { HttpExceptionFilter } from 'src/utils/http-exception.filter';
 
-@UseFilters(new HttpExceptionFilter())
+@UseFilters(HttpExceptionFilter)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
@@ -39,6 +39,10 @@ export class TasksController {
 
   @Put(':id/complete')
   async finishTask(@Param('id', ParseIntPipe) id: number) {
+    const task = await this.tasksService.findTask(id);
+    if (!task) {
+      throw new NotFoundException('Task not found');
+    }
     return await this.tasksService.finishTask(id);
   }
 
@@ -48,7 +52,6 @@ export class TasksController {
     if (!task) {
       throw new NotFoundException('Task not found');
     }
-    const deleteTask = await this.tasksService.deleteTask(id);
-    return deleteTask;
+    return await this.tasksService.deleteTask(id);
   }
 }
