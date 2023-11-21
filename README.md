@@ -4,7 +4,7 @@
 - Docker summarize: [here](./docker_summarize.md)
 
 - How to install PNPM:
-+ If you have npm install:
-```
-npm i -g pnpm
-```
+  + If you have npm install:
+  ```
+  npm i -g pnpm
+  ```
