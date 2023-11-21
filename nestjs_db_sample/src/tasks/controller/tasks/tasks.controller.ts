@@ -8,19 +8,21 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  UseFilters,
+  UseGuards,
+  Request,
+  UnauthorizedException,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateTaskDto } from 'src/tasks/dtos/CreateTask.dto';
 import { TasksService } from 'src/tasks/service/tasks/tasks.service';
-import { HttpExceptionFilter } from 'src/utils/http-exception.filter';
 
-@UseFilters(HttpExceptionFilter)
+@UseGuards(AuthGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
   @Get()
-  getAllTasks() {
-    return this.tasksService.findAllTask();
+  getAllTasks(@Request() req) {
+    return this.tasksService.findAllTask(req.user.sub);
   }
 
   @Get(':id')
@@ -33,13 +35,16 @@ export class TasksController {
   }
 
   @Post()
-  async createTask(@Body() createTaskDto: CreateTaskDto) {
-    return await this.tasksService.createTask(createTaskDto);
+  async createTask(@Body() createTaskDto: CreateTaskDto, @Request() req) {
+    return await this.tasksService.createTask(createTaskDto, req.user.sub);
   }
 
   @Put(':id/complete')
-  async finishTask(@Param('id', ParseIntPipe) id: number) {
+  async finishTask(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const task = await this.tasksService.findTask(id);
+    if (task.owner.id !== req.user.sub) {
+      throw new UnauthorizedException();
+    }
     if (!task) {
       throw new NotFoundException('Task not found');
     }
@@ -47,8 +52,11 @@ export class TasksController {
   }
 
   @Delete(':id')
-  async deleteTask(@Param('id', ParseIntPipe) id: number) {
+  async deleteTask(@Param('id', ParseIntPipe) id: number, @Request() req) {
     const task = await this.tasksService.findTask(id);
+    if (task.owner.id !== req.user.sub) {
+      throw new UnauthorizedException();
+    }
     if (!task) {
       throw new NotFoundException('Task not found');
     }

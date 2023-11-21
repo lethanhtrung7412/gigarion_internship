@@ -16,7 +16,7 @@ export class UserService {
     return await this.userRepository.save(newUser);
   }
 
-  async getInfo(id: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { id } });
+  async getInfo(username: string): Promise<User> {
+    return await this.userRepository.findOne({ where: { username } });
   }
 }

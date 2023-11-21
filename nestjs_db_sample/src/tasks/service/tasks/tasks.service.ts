@@ -10,11 +10,22 @@ export class TasksService {
     @InjectRepository(Task)
     private taskRepository: Repository<Task>,
   ) {}
-  async findAllTask(): Promise<Task[]> {
-    return await this.taskRepository.find();
+  async findAllTask(userId: string): Promise<Task[]> {
+    return await this.taskRepository.find({
+      where: {
+        owner: {
+          id: userId,
+        },
+      },
+    });
   }
-  async createTask(taskDetail: CreateTaskDto): Promise<Task> {
-    const newTask = this.taskRepository.create({ ...taskDetail });
+  async createTask(taskDetail: CreateTaskDto, userId: string): Promise<Task> {
+    const newTask = this.taskRepository.create({
+      ...taskDetail,
+      owner: {
+        id: userId,
+      },
+    });
     return await this.taskRepository.save(newTask);
   }
 

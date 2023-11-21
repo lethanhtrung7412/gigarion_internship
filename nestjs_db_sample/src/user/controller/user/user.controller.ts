@@ -11,8 +11,8 @@ export class UserController {
     return await this.userService.register(newUserBody);
   }
 
-  @Get(':id')
-  async getInfo(@Param('id') id: string) {
-    return await this.userService.getInfo(id);
+  @Get(':username')
+  async getInfo(@Param('username') username: string) {
+    return await this.userService.getInfo(username);
   }
 }
