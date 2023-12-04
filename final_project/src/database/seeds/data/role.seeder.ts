@@ -2,11 +2,11 @@ export const ROLE_LIST = [
   {
     name: 'Administrator',
     code: 'ADMIN',
-    permissions: [1, 2, 3, 4],
+    permissions: ['C', 'R', 'U', 'D'],
   },
   {
     name: 'User',
     code: 'USER',
-    permissions: [2],
+    permissions: ['R'],
   },
 ];

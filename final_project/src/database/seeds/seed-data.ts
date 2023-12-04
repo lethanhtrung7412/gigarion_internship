@@ -4,39 +4,52 @@ import { Role } from '../entities/Role';
 import { PERMISSION_LIST } from './data/permission.seeder';
 import { ROLE_LIST } from './data/role.seeder';
 
-export async function seedData(dataSource: DataSource): Promise<void> {
+export async function seedPermission(dataSource: DataSource): Promise<void> {
   const permissionRepository = dataSource.getRepository(Permission);
-  const roleRepository = dataSource.getRepository(Role);
-
   const permissionList = PERMISSION_LIST;
+
   for (const permission of permissionList) {
     const _permission = permissionRepository.create(permission as Permission);
     await permissionRepository.upsert(_permission, ['name']);
   }
+}
+export async function seedRole(dataSource: DataSource): Promise<void> {
+  const roleRepository = dataSource.getRepository(Role);
+  const permissionRepository = dataSource.getRepository(Permission);
 
   const roleList = ROLE_LIST;
   for (const role of roleList) {
-    const permissions = await permissionRepository.findBy({
-      id: In(role.permissions),
+    const _permissions = await permissionRepository.findBy({
+      code: In(role.permissions),
     });
-    console.log(permissions);
+    // console.log(_permissions);
     const roleItem = {
       name: role.name,
       code: role.code,
     };
     const _role = roleRepository.create({
       ...roleItem,
-      permissions: permissions,
-    } as Role);
+    });
+    for (const permission of _permissions) {
+      // console.log(permission);
+      _role.addPermission(permission);
+    }
     console.log(_role);
-    await roleRepository.upsert(_role, ['name']);
+    // const result = await roleRepository.save(_role);
+    // console.log(result);
   }
+}
 
-  const role = await roleRepository.find({
+export async function testing(dataSource: DataSource): Promise<void> {
+  const roleRepository = dataSource.getRepository(Role);
+
+  const result = await roleRepository.find({
     where: {
       code: 'ADMIN',
     },
-    relations: ['permissions'],
+    relations: {
+      permissions: true,
+    },
   });
-  console.log(role[0].permissions);
+  console.log(JSON.stringify(result, null, 2));
 }

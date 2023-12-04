@@ -11,8 +11,8 @@ export const dataSourceOptions: DataSourceOptions = {
   password: 'root',
   database: 'final',
   entities: [User, Permission, Role],
-  migrations: ['src/database/migrations/*{.ts,.js}'],
-  synchronize: true,
+  migrations: [__dirname + '/migrations/*.{ts,js}'],
+  synchronize: false,
 };
 
 export const seedSourceOptions: DataSourceOptions = {

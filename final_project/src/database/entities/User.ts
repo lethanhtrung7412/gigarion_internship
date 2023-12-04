@@ -4,20 +4,22 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import { Role } from './Role';
 
 @Entity({ name: 'users' })
 export default class User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({
     type: 'varchar',
     nullable: false,
     unique: true,
   })
-  username: string;
+  email: string;
 
   @Column({
     type: 'varchar',
@@ -40,4 +42,9 @@ export default class User {
   @OneToOne(() => Role, (role) => role.code)
   @JoinColumn({ name: 'role_code' })
   role: Role;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
 }

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { Role } from './Role';
 
 @Entity({ name: 'permissions' })
@@ -12,6 +12,8 @@ export default class Permission {
   @Column({ type: 'varchar', unique: true })
   code: string;
 
-  @ManyToOne(() => Role, (role) => role.permissions)
-  role: Role;
+  @ManyToMany(() => Role, (role) => role.permissions, {
+    cascade: true,
+  })
+  roles: Role[];
 }

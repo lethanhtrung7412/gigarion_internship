@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import Permission from './Permission';
 
 @Entity({ name: 'roles' })
@@ -12,6 +18,13 @@ export class Role {
   @Column({ type: 'varchar', unique: true })
   code: string;
 
-  @OneToMany(() => Permission, (permission) => permission.role)
+  @ManyToMany(() => Permission, (permission) => permission.roles)
+  @JoinTable({
+    name: 'role_permissions',
+  })
   permissions: Permission[];
+
+  addPermission(permission: Permission) {
+    this.permissions.push(permission);
+  }
 }
