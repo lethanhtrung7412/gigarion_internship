@@ -82,15 +82,15 @@ npm install -g pnpm
 pnpm install
 ```
 3. Initialize the database using Docker
-  1. Pull the mysql image from docker hub
+- Pull the mysql image from docker hub
 ```bash
 docker pull mysql:8.2.0
 ```
-  2. Initialize a container
+- Initialize a container
 ```bash
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=your password -d mysql:8.2.0
 ```
-  3. Access the MYSQL shell
+- Access the MYSQL shell
 ```bash
 docker exec -it mysql bash
 ```
@@ -98,11 +98,11 @@ docker exec -it mysql bash
 mysql -u root -p
 #then enter your password
 ```
-  4. Create new database
+- Create new database
 ```sql
 CREATE DATABASE 'final'; 
 ```
-  5. Exit mysql using '\q' and bash using 'exit'
+- Exit mysql using '\q' and bash using 'exit'
 4. Migrate the database
 ```bash
 pnpm db:run
