@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  ManyToOne,
 } from 'typeorm';
 import Permission from './Permission';
+import User from './User';
 
 @Entity({ name: 'roles' })
 export class Role {
@@ -17,6 +19,9 @@ export class Role {
 
   @Column({ type: 'varchar', unique: true })
   code: string;
+
+  @ManyToOne(() => User, (user) => user.role)
+  user: User[];
 
   @ManyToMany(() => Permission, (permission) => permission.roles)
   @JoinTable({

@@ -71,3 +71,54 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Install
+1. Install pnpm
+```bash
+npm install -g pnpm
+```
+2. Install all the package
+```bash
+pnpm install
+```
+3. Initialize the database using Docker
+3.1 Pull the mysql image from docker hub
+```bash
+docker pull mysql:8.2.0
+```
+3.2 Initialize a container
+```bash
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=your password -d mysql:8.2.0
+```
+3.3 Access the MYSQL shell
+```bash
+docker exec -it mysql bash
+```
+```bash
+mysql -u root -p
+#then enter your password
+```
+3.4 Create new database
+```sql
+CREATE DATABASE 'final'; 
+```
+3.5 Exit mysql using '\q' and bash using 'exit'
+4. Migrate the database
+```bash
+pnpm db:run
+```
+5. Seed the pre-define role and permissions
+```bash
+pnpm seed
+```
+6. Run the project
+- For developing
+```bash
+pnpm start:dev
+```
+- Or normal
+```bash
+pnpm start
+```
+#### Access the Swagger Documentaion
+- You can access at http://localhost:3306/docs

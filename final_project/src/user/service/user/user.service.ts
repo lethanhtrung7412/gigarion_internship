@@ -21,11 +21,12 @@ export class UserService {
         code: payload.roleCode,
       },
     });
+    console.log(role);
     const newUser = this.userRepository.create({
       ...payload,
       role: role,
     });
-
+    console.log(newUser);
     return await this.userRepository.save(newUser);
   }
 
@@ -48,6 +49,10 @@ export class UserService {
         },
       },
     });
+  }
+
+  async getAllUser(): Promise<User[]> {
+    return await this.userRepository.find();
   }
 
   async updateUserProfile(

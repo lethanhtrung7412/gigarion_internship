@@ -2,9 +2,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
   JoinColumn,
   BeforeInsert,
+  ManyToOne,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Role } from './Role';
@@ -39,8 +39,8 @@ export default class User {
   })
   lastName: string;
 
-  @OneToOne(() => Role, (role) => role.code)
-  @JoinColumn({ name: 'role_code' })
+  @ManyToOne(() => Role, (role) => role.code)
+  @JoinColumn({ name: 'role_id' })
   role: Role;
 
   @BeforeInsert()
