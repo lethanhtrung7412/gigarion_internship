@@ -65,4 +65,4 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 #### Access the Swagger Documentaion
-- You can access at http://localhost:3306/docs
+- You can access at http://localhost:3000/docs
