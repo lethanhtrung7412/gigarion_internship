@@ -28,7 +28,7 @@ export class PermissionGuard implements CanActivate {
     }
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-
+    console.log(user);
     if (user.role.code === RoleEnum.ADMIN) {
       return true;
     }
@@ -44,6 +44,7 @@ export class PermissionGuard implements CanActivate {
         `You don't have permission to perform this actions`,
       );
     }
+    console.log(hasPermission);
     return hasPermission;
     // return requirePermission.every((p) => hasPermission(userPermissions, p));
   }
