@@ -10,7 +10,6 @@ import {
   Put,
   UseGuards,
   Request,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateTaskDto } from 'src/tasks/dtos/CreateTask.dto';
@@ -26,8 +25,8 @@ export class TasksController {
   }
 
   @Get(':id')
-  async getTaskById(@Param('id', ParseIntPipe) id: number) {
-    const task = await this.tasksService.findTask(id);
+  async getTaskById(@Param('id', ParseIntPipe) id: number, @Request() req) {
+    const task = await this.tasksService.findTask(id, req.user.sub);
     if (!task) {
       throw new NotFoundException('Task not found');
     }
@@ -41,10 +40,7 @@ export class TasksController {
 
   @Put(':id/complete')
   async finishTask(@Param('id', ParseIntPipe) id: number, @Request() req) {
-    const task = await this.tasksService.findTask(id);
-    if (task.owner.id !== req.user.sub) {
-      throw new UnauthorizedException();
-    }
+    const task = await this.tasksService.findTask(id, req.user.sub);
     if (!task) {
       throw new NotFoundException('Task not found');
     }
@@ -53,10 +49,8 @@ export class TasksController {
 
   @Delete(':id')
   async deleteTask(@Param('id', ParseIntPipe) id: number, @Request() req) {
-    const task = await this.tasksService.findTask(id);
-    if (task.owner.id !== req.user.sub) {
-      throw new UnauthorizedException();
-    }
+    const task = await this.tasksService.findTask(id, req.user.sub);
+
     if (!task) {
       throw new NotFoundException('Task not found');
     }
