@@ -1,0 +1,9 @@
+- Validate Input
+- Validate bussiness
++ Check if user exits
++ Update
+- RESTful URL naming convention
+- Re-write Exception filter to have custom filter
+- Clean code
+- Rename file
+- Add docker-compose
