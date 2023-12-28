@@ -2,6 +2,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import User from './entities/User';
 import Permission from './entities/Permission';
 import { Role } from './entities/Role';
+import { Data } from './entities/Data';
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'mysql',
@@ -10,7 +11,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: 'root',
   password: 'root',
   database: 'final',
-  entities: [User, Permission, Role],
+  entities: [User, Permission, Role, Data],
   migrations: [__dirname + '/migrations/*.{ts,js}'],
   synchronize: false,
 };

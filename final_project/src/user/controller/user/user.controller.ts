@@ -21,7 +21,7 @@ import { UserService } from 'src/user/service/user/user.service';
 
 @ApiBearerAuth()
 @ApiTags('User')
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -50,6 +50,7 @@ export class UserController {
 
   @ApiOperation({ summary: 'Admin get the user profile by Id' })
   @UseGuards(AuthGuard, PermissionGuard)
+  @Permissions('R')
   @Get(':id')
   async getUserByIds(@Param('id') id: string) {
     return this.userService.getUserById(id);
@@ -64,7 +65,7 @@ export class UserController {
   @ApiOperation({ summary: 'Admin Update the user profile' })
   @UseGuards(AuthGuard, PermissionGuard)
   @Permissions('U')
-  @Patch('update/:id')
+  @Patch(':id')
   async updateProfile(
     @Param('id') id: string,
     @Body() payload: UpdateUserProfileDtos,
@@ -74,7 +75,7 @@ export class UserController {
   @ApiOperation({ summary: 'Admin delete the user by Id' })
   @UseGuards(AuthGuard, PermissionGuard)
   @Permissions('D')
-  @Delete('delete/:id')
+  @Delete(':id')
   async deleteProfile(@Param('id') id: string) {
     return await this.userService.deleteUser(id);
   }

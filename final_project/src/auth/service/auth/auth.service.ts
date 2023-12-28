@@ -16,7 +16,7 @@ export class AuthService {
     if (!user || !bcrypt.compare(user.password, password)) {
       throw new UnauthorizedException();
     }
-
+    console.log(user.role.code);
     const payload = {
       id: user.id,
       email: user.email,
